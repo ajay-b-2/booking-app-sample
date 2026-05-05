@@ -673,3 +673,12 @@ function deleteVehicle(id) {
         showToast("Vehicle deleted");
     }
 }
+
+
+function deleteVehicle(id) {
+    if(confirm("Are you sure you want to delete this vehicle?")) {
+        vehicles = vehicles.filter(v => v.id !== id);
+        renderAdminVehicles();
+        showToast("Vehicle deleted");
+    }
+}
