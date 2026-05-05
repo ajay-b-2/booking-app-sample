@@ -331,7 +331,7 @@ function renderVehicles() {
                 <h3 class="package-title">${veh.name}</h3>
                 <p class="package-loc"><i class="ri-steering-2-line"></i> ${veh.type} • ${veh.seating} Seats</p>
                 <div class="package-rating">
-                    <i class="ri-star-fill"></i> ${veh.rating} (${veh.reviews.length})
+                    <i class="ri-star-fill"></i> ${veh.rating}
                 </div>
             </div>
         `;
@@ -396,49 +396,12 @@ function openDetails(id) {
     document.getElementById('details-transmission').innerText = currentVehicle.transmission;
     document.getElementById('details-fuel').innerText = currentVehicle.fuel;
     document.getElementById('details-rating-val').innerText = currentVehicle.rating;
-    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
     document.getElementById('details-seating').innerText = currentVehicle.seating;
     document.getElementById('details-desc').innerText = currentVehicle.description;
     
-    renderReviews();
     navigateTo('details-screen');
 }
 
-function renderReviews() {
-    const list = document.getElementById('details-reviews-list');
-    list.innerHTML = '';
-    
-    if (currentVehicle.reviews.length === 0) {
-        list.innerHTML = '<p class="review-text">No reviews yet. Be the first!</p>';
-        return;
-    }
-
-    currentVehicle.reviews.forEach(r => {
-        const div = document.createElement('div');
-        div.className = 'review-item';
-        div.innerHTML = `
-            <div class="review-user">${r.user}</div>
-            <div class="review-text">${r.text}</div>
-        `;
-        list.appendChild(div);
-    });
-}
-
-function submitReview() {
-    const input = document.getElementById('review-text');
-    const text = input.value.trim();
-    if(!text) return;
-
-    currentVehicle.reviews.push({
-        user: currentUser.name,
-        text: text
-    });
-    
-    input.value = '';
-    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
-    renderReviews();
-    showToast("Review added!");
-}
 
 // --- Booking Flow ---
 function startBooking() {
