@@ -3,6 +3,36 @@ let currentUser = null;
 let vehicles = [
     {
         id: 1,
+        name: 'Tata nexon',
+        category: 'Car',
+        type: 'Luxury Sedan',
+        price: 3500,
+        seating: 4,
+        transmission: 'Automatic',
+        fuel: 'Petrol',
+        image: 'https://imgd.aeplcdn.com/310x174/n/cw/ec/141867/nexon-exterior-right-front-three-quarter-79.png?isig=0&q=80',
+        rating: 5.0,
+        reviews: [
+            { user: 'Karan M', text: 'Ultimate luxury! Made our wedding day unforgettable.' }
+        ],
+        description: 'The epitome of luxury. Make a grand entrance on your special day in the world-renowned Tata nexon. Chauffeur included.'
+    },
+    {
+        id: 2,
+        name: 'Maruti Wagon R',
+        category: 'Car',
+        type: 'Vintage',
+        price: 2500,
+        seating: 4,
+        transmission: 'Manual',
+        fuel: 'Petrol',
+        image: 'https://imgd.aeplcdn.com/1920x1080/n/cw/ec/112947/wagon-r-exterior-right-front-three-quarter-6.png?isig=0&q=80&q=80',
+        rating: 4.9,
+        reviews: [],
+        description: 'Add a touch of timeless elegance to your wedding with this fully restored classic vintage Jaguar.'
+    },
+    {
+        id: 3,
         name: 'Maruti Suzuki Swift',
         category: 'Car',
         type: 'Hatchback',
@@ -10,15 +40,16 @@ let vehicles = [
         seating: 4,
         transmission: 'Manual',
         fuel: 'Petrol',
-        image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1000',
+        image: 'https://i0.wp.com/bestsellingcarsblog.com/wp-content/uploads/2022/06/Suzuki-Swift-South-Africa-May-2022.jpeg?resize=600%2C400',
         rating: 4.8,
         reviews: [
             { user: 'Rahul K', text: 'Great car for city driving.' }
         ],
         description: 'Compact and fuel-efficient hatchback, perfect for city rides and short trips. Features AC, Bluetooth audio, and comfortable seating.'
     },
+
     {
-        id: 2,
+        id: 4,
         name: 'Toyota Innova Crysta',
         category: 'Car',
         type: 'SUV',
@@ -31,8 +62,23 @@ let vehicles = [
         reviews: [],
         description: 'Premium SUV offering ultimate comfort for long journeys. Ample legroom, powerful AC, and smooth automatic transmission.'
     },
+
+       {
+        id: 9,
+        name: 'Maruti Alto K10',
+        category: 'Car',
+        type: 'Hatchback',
+        price: 900,
+        seating: 4,
+        transmission: 'Manual',
+        fuel: 'Diesel',
+        image: 'https://imgd.aeplcdn.com/664x374/cw/ec/39013/Maruti-Suzuki-Alto-Right-Front-Three-Quarter-154833.jpg?wm=0&q=80',
+        rating: 4.6,
+        reviews: [],
+        description: 'Reliable and comfortable AC tourist bus for corporate trips, school tours, and large group travels.'
+    },
     {
-        id: 3,
+        id: 5,
         name: 'Force Traveller',
         category: 'Traveller',
         type: 'Van',
@@ -40,53 +86,75 @@ let vehicles = [
         seating: 12,
         transmission: 'Manual',
         fuel: 'Diesel',
-        image: 'https://images.unsplash.com/photo-1621291880461-1fc4e24eb3d9?auto=format&fit=crop&q=80&w=1000',
+        image: 'https://buscdn.cardekho.com/in/force/traveller-3050/force-traveller-3050.jpg?impolicy=resize&imwidth=480',
         rating: 4.7,
         reviews: [],
         description: 'Spacious 12-seater AC Traveller for group tours and family trips. Comes with push-back seats and ample luggage space.'
     },
     {
-        id: 4,
-        name: 'Urbania Luxury Van',
+        id: 6,
+        name: 'Tempo Traveller',
         category: 'Traveller',
         type: 'Van',
-        price: 6000,
-        seating: 17,
+        price: 16000,
+        seating: 30,
         transmission: 'Manual',
         fuel: 'Diesel',
-        image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1000',
+        image: 'https://cdn.bluebirdtravels.in/wp-content/uploads/2017/01/Tempo_Traveller_PI.png',
         rating: 4.8,
         reviews: [],
-        description: 'Luxury van with premium interiors, individual AC vents, and recliner seats for the ultimate group travel experience.'
+        description: 'Tempo Traveller is for every occasion, Economy and Luxury. Vehicle to undertake rugged mountain trips. Long trips or short ones, Hill stations or other picnic spots, We have the right range for you.'
+    },
+
+           {
+        id: 10,
+        name: 'Force Urbania',
+        category: 'Traveller',
+        type: 'Hatchback',
+        price: 12000,
+        seating: 20,
+        transmission: 'Manual',
+        fuel: 'Diesel',
+        image: 'https://buscdn.cardekho.com/in/force/urbania/force-urbania.jpg?impolicy=resize&imwidth=480',
+        rating: 4.6,
+        reviews: [],
+        description: 'Reliable and comfortable AC tourist bus for corporate trips, school tours, and large group travels.'
     },
     {
-        id: 5,
-        name: 'Volvo B11R Multi-Axle',
+        id: 7,
+        name: 'Touist Bus volvo',
         category: 'Bus',
         type: 'Luxury Bus',
         price: 12000,
-        seating: 40,
+        seating: 45,
         transmission: 'Automatic',
         fuel: 'Diesel',
-        image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=1000',
+        image: 'https://keralatourbus.com/wp-content/uploads/2019/04/glider-1-ktb.png',
         rating: 4.9,
         reviews: [],
-        description: 'State-of-the-art Volvo luxury bus with semi-sleeper seats, onboard entertainment, and air suspension for maximum comfort.'
+        description: 'State-of-the-art Volvo luxury tourist bus with semi-sleeper seats, onboard entertainment, and air suspension for maximum comfort.'
     },
     {
-        id: 6,
-        name: 'Tata Magna AC Seater',
+        id: 8,
+        name: 'Tata Magna Tourist AC',
         category: 'Bus',
         type: 'AC Bus',
         price: 9000,
-        seating: 45,
+        seating: 35,
         transmission: 'Manual',
         fuel: 'Diesel',
-        image: 'https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?auto=format&fit=crop&q=80&w=1000',
+        image: 'https://www.clearcabs.com/assets/img/service/volvo-bus-hire-clearcabs-1.webp',
         rating: 4.6,
         reviews: [],
-        description: 'Reliable and comfortable AC bus for corporate trips, school tours, and large group travels.'
-    }
+        description: 'Reliable and comfortable AC tourist bus for corporate trips, school tours, and large group travels.'
+    },
+
+
+    
+    
+
+  
+    
 ];
 
 let bookings = [];
@@ -128,7 +196,16 @@ function navigateTo(screenId, pushToHistory = true) {
         renderVehicles();
         renderUpcomingBooking();
     }
-    if (screenId === 'user-bookings-screen') renderUserBookings();
+    if (screenId === 'user-bookings-screen') {
+        currentBookingTab = 'upcoming'; // Reset to default tab
+        const screen = document.getElementById('user-bookings-screen');
+        if (screen) {
+            const tabs = screen.querySelectorAll('.admin-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            if (tabs[0]) tabs[0].classList.add('active');
+        }
+        renderUserBookings();
+    }
     if (screenId === 'admin-screen') {
         renderAdminVehicles();
         renderAdminBookings();
@@ -173,7 +250,7 @@ let authMode = 'login';
 function switchAuthTab(mode) {
     authMode = mode;
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
+    if (event && event.currentTarget) event.currentTarget.classList.add('active');
     
     const nameGroup = document.getElementById('name-group');
     const submitBtn = document.getElementById('auth-submit-btn');
@@ -254,7 +331,7 @@ function renderVehicles() {
                 <h3 class="package-title">${veh.name}</h3>
                 <p class="package-loc"><i class="ri-steering-2-line"></i> ${veh.type} • ${veh.seating} Seats</p>
                 <div class="package-rating">
-                    <i class="ri-star-fill"></i> ${veh.rating} (${veh.reviews.length})
+                    <i class="ri-star-fill"></i> ${veh.rating}
                 </div>
             </div>
         `;
@@ -278,7 +355,7 @@ function renderUpcomingBooking() {
         container.style.display = 'block';
         card.innerHTML = `
             <div class="bc-header">
-                <span>${veh.name}</span>
+                <span>${veh ? veh.name : 'Unknown Vehicle'}</span>
                 <span class="bc-status">Upcoming</span>
             </div>
             <div class="bc-date" style="margin-top:8px;"><i class="ri-calendar-line"></i> From: ${nextTrip.startDate} To: ${nextTrip.endDate}</div>
@@ -319,49 +396,13 @@ function openDetails(id) {
     document.getElementById('details-transmission').innerText = currentVehicle.transmission;
     document.getElementById('details-fuel').innerText = currentVehicle.fuel;
     document.getElementById('details-rating-val').innerText = currentVehicle.rating;
-    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
     document.getElementById('details-seating').innerText = currentVehicle.seating;
     document.getElementById('details-desc').innerText = currentVehicle.description;
     
-    renderReviews();
     navigateTo('details-screen');
 }
 
-function renderReviews() {
-    const list = document.getElementById('details-reviews-list');
-    list.innerHTML = '';
-    
-    if (currentVehicle.reviews.length === 0) {
-        list.innerHTML = '<p class="review-text">No reviews yet. Be the first!</p>';
-        return;
-    }
 
-    currentVehicle.reviews.forEach(r => {
-        const div = document.createElement('div');
-        div.className = 'review-item';
-        div.innerHTML = `
-            <div class="review-user">${r.user}</div>
-            <div class="review-text">${r.text}</div>
-        `;
-        list.appendChild(div);
-    });
-}
-
-function submitReview() {
-    const input = document.getElementById('review-text');
-    const text = input.value.trim();
-    if(!text) return;
-
-    currentVehicle.reviews.push({
-        user: currentUser.name,
-        text: text
-    });
-    
-    input.value = '';
-    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
-    renderReviews();
-    showToast("Review added!");
-}
 
 // --- Booking Flow ---
 function startBooking() {
@@ -462,7 +503,7 @@ function switchUserBookingsTab(tab) {
     const screen = document.getElementById('user-bookings-screen');
     const tabs = screen.querySelectorAll('.admin-tab');
     tabs.forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
+    if (event && event.currentTarget) event.currentTarget.classList.add('active');
     renderUserBookings();
 }
 
@@ -490,7 +531,7 @@ function renderUserBookings() {
         div.className = 'booking-card';
         div.innerHTML = `
             <div class="bc-header">
-                <span>${veh.name}</span>
+                <span>${veh ? veh.name : 'Unknown Vehicle'}</span>
                 <span class="bc-status">${b.status}</span>
             </div>
             <div class="bc-date">From: ${b.startDate} | To: ${b.endDate}</div>
