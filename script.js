@@ -10,7 +10,7 @@ let vehicles = [
         seating: 4,
         transmission: 'Automatic',
         fuel: 'Petrol',
-        image: 'https://imgd.aeplcdn.com/310x174/n/cw/ec/141867/nexon-exterior-right-front-three-quarter-79.png?isig=0&q=80',
+        image: 'https://images.91wheels.com/assets/c_images/gallery/tata/nexon/tata-nexon-0-1769674747.png',
         rating: 5.0,
         reviews: [
             { user: 'Karan M', text: 'Ultimate luxury! Made our wedding day unforgettable.' }
