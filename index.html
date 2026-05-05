@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Wanderlust - Travel Booking App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideNow - Vehicle Rentals</title>
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -14,359 +12,422 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app-container">
+<div id="app-container">
 
-        <!-- Splash Screen -->
-        <div id="splash-screen" class="screen active">
-            <div class="splash-content">
-                <i class="ri-plane-fill splash-icon"></i>
-                <h1>Wanderlust</h1>
-                <p>Discover Your Next Adventure</p>
+    <!-- Splash -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-content">
+            <i class="ri-roadster-fill splash-icon"></i>
+            <h1>RideNow</h1>
+            <p>Premium Vehicle Rentals</p>
+        </div>
+    </div>
+
+    <!-- Auth -->
+    <div id="auth-screen" class="screen">
+        <div class="auth-header">
+            <h2>Welcome to RideNow</h2>
+            <p>Login or create an account to start booking.</p>
+        </div>
+        
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+            <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+        </div>
+
+        <form id="auth-form" onsubmit="handleAuth(event)">
+            <div class="form-group" id="name-group" style="display: none;">
+                <i class="ri-user-line"></i>
+                <input type="text" id="auth-name" placeholder="Full Name">
+            </div>
+
+            <div class="form-group">
+                <i class="ri-mail-line"></i>
+                <input type="email" id="auth-email" placeholder="Email Address" required>
+            </div>
+
+            <div class="form-group">
+                <i class="ri-lock-line"></i>
+                <input type="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit" id="auth-submit-btn" class="btn-primary full-width">Login</button>
+            
+            <div class="auth-admin-toggle">
+                <label>
+                    <input type="checkbox" id="auth-is-admin"> Login as Administrator
+                </label>
+            </div>
+        </form>
+    </div>
+
+    <!-- Home -->
+    <div id="home-screen" class="screen">
+        <div class="home-header">
+            <div>
+                <h2>Hi, <span id="user-greeting-name">User</span> 👋</h2>
+                <p class="greeting">Find your perfect ride</p>
+            </div>
+            <div class="avatar" onclick="navToTab('dashboard-screen', this)">
+                <i class="ri-user-fill"></i>
             </div>
         </div>
 
-        <!-- Login / Signup Screen -->
-        <div id="auth-screen" class="screen">
-            <div class="auth-header">
-                <h2>Welcome Back!</h2>
-                <p>Login to continue your journey</p>
-            </div>
-            <div class="auth-tabs">
-                <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
-                <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
-            </div>
-            <form id="auth-form" onsubmit="handleAuth(event)">
-                <div class="form-group" id="name-group" style="display: none;">
-                    <i class="ri-user-line"></i>
-                    <input type="text" id="auth-name" placeholder="Full Name">
-                </div>
-                <div class="form-group">
-                    <i class="ri-mail-line"></i>
-                    <input type="email" id="auth-email" placeholder="Email or Phone Number" required>
-                </div>
-                <div class="form-group">
-                    <i class="ri-lock-line"></i>
-                    <input type="password" id="auth-password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn-primary" id="auth-submit-btn">Login</button>
-                <div class="auth-admin-toggle">
-                    <label>
-                        <input type="checkbox" id="auth-is-admin"> Login as Admin
-                    </label>
-                </div>
-            </form>
+        <div class="search-bar">
+            <i class="ri-search-line"></i>
+            <input type="text" id="search-input" placeholder="Search cars, buses..." onkeyup="renderVehicles()">
+            <button class="filter-btn" onclick="toggleFilterModal()">
+                <i class="ri-equalizer-line"></i>
+            </button>
         </div>
 
-        <!-- Home Screen -->
-        <div id="home-screen" class="screen">
-            <div class="home-header">
-                <div>
-                    <p class="greeting">Hello, <span id="user-greeting-name">Traveler</span> 👋</p>
-                    <h2>Where to next?</h2>
-                </div>
-                <div class="avatar" onclick="navigateTo('dashboard-screen')">
-                    <i class="ri-user-smile-line"></i>
-                </div>
-            </div>
-
-            <div class="offer-banner">
-                <div class="offer-content">
-                    <h3>Explore Incredible India</h3>
-                    <p>Get up to 20% off on premium packages</p>
-                </div>
-                <div class="offer-discount">20% OFF</div>
-            </div>
-
-            <div id="home-upcoming-booking" style="display:none;">
-                <h3 class="section-title">Your Upcoming Trip</h3>
-                <div id="home-booking-card" class="booking-card"></div>
-            </div>
-
-            <div class="search-bar">
-                <i class="ri-search-line"></i>
-                <input type="text" id="search-input" placeholder="Search destination, city..." oninput="filterPackages()">
-                <button class="filter-btn" onclick="toggleFilterModal()"><i class="ri-equalizer-line"></i></button>
-            </div>
-
-            <div class="categories">
-                <button class="category-btn active" onclick="setCategory('All')">All</button>
-                <button class="category-btn" onclick="setCategory('Hill Station')">Hill Station</button>
-                <button class="category-btn" onclick="setCategory('Beach')">Beach</button>
-                <button class="category-btn" onclick="setCategory('Heritage')">Heritage</button>
-                <button class="category-btn" onclick="setCategory('Nature')">Nature</button>
-            </div>
-
-            <h3 class="section-title">Popular Destinations</h3>
-            <div class="package-list" id="package-list">
-                <!-- Packages injected via JS -->
+        <div id="home-upcoming-booking" style="display: none; margin-bottom: 24px;">
+            <h3 class="section-title">Your Next Ride</h3>
+            <div id="home-booking-card" class="booking-card" onclick="navToTab('user-bookings-screen', null)">
+                <!-- populated by JS -->
             </div>
         </div>
 
-        <!-- Filter Modal -->
-        <div id="filter-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Filters</h3>
-                    <button class="close-btn" onclick="toggleFilterModal()"><i class="ri-close-line"></i></button>
-                </div>
-                <div class="filter-group">
-                    <label>Max Price: ₹<span id="price-val">30000</span></label>
-                    <input type="range" id="filter-price" min="5000" max="50000" value="30000" step="1000" oninput="document.getElementById('price-val').innerText = this.value">
-                </div>
-                <button class="btn-primary" onclick="applyFilters()">Apply Filters</button>
-            </div>
+        <div class="categories">
+            <button class="category-btn active" onclick="setCategory('All')">All Rides</button>
+            <button class="category-btn" onclick="setCategory('Car')">Cars</button>
+            <button class="category-btn" onclick="setCategory('Traveller')">Travellers</button>
+            <button class="category-btn" onclick="setCategory('Bus')">Buses</button>
         </div>
 
-        <!-- Package Details Screen -->
-        <div id="details-screen" class="screen">
-            <button class="back-btn" onclick="goBack()"><i class="ri-arrow-left-line"></i></button>
-            <div class="details-image" id="details-image"></div>
-            <div class="details-content">
-                <div class="details-header-row">
-                    <h2 id="details-title">Package Title</h2>
-                    <div class="details-price">₹<span id="details-price">0</span></div>
-                </div>
-                <p class="details-location"><i class="ri-map-pin-line"></i> <span id="details-location">Location</span></p>
-                <div class="details-rating">
-                    <i class="ri-star-fill"></i> <span id="details-rating-val">4.5</span> (<span id="details-reviews-count">0</span> reviews)
-                </div>
-                
-                <h3 class="section-title">Description</h3>
-                <p class="details-desc" id="details-desc">Description goes here...</p>
-                
-                <h3 class="section-title">Reviews</h3>
-                <div class="reviews-list" id="details-reviews-list">
-                    <!-- Reviews injected here -->
-                </div>
-                <div class="add-review">
-                    <input type="text" id="review-text" placeholder="Write a review...">
-                    <button class="btn-secondary" onclick="submitReview()">Submit</button>
-                </div>
-            </div>
-            <div class="bottom-action-bar">
-                <button class="btn-primary full-width" onclick="startBooking()">Book Now</button>
-            </div>
+        <div id="vehicle-list" class="package-list">
+            <!-- Dynamically populated -->
         </div>
+    </div>
 
-        <!-- Booking Screen -->
-        <div id="booking-screen" class="screen">
-            <div class="screen-header">
-                <button class="back-btn-inline" onclick="goBack()"><i class="ri-arrow-left-line"></i></button>
-                <h2>Select Dates</h2>
-            </div>
-            <div class="booking-content">
-                <div class="package-summary">
-                    <div class="summary-flex">
-                        <div class="summary-img" id="booking-pkg-img"></div>
-                        <div>
-                            <h3 id="booking-pkg-title">Package Name</h3>
-                            <p class="summary-loc"><i class="ri-map-pin-line"></i> <span id="booking-pkg-loc">Location</span></p>
-                            <p class="summary-price">₹<span id="booking-pkg-price">0</span> / person</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Travel Date</label>
-                    <input type="date" id="booking-date" required>
-                </div>
-                <div class="form-group">
-                    <label>Number of Guests</label>
-                    <input type="number" id="booking-guests" min="1" value="1" oninput="updateTotal()">
-                </div>
-                <div class="total-price-box">
-                    <span>Total Amount</span>
-                    <span class="total-amount">₹<span id="booking-total">0</span></span>
-                </div>
-            </div>
-            <div class="bottom-action-bar">
-                <button class="btn-primary full-width" onclick="proceedToPayment()">Continue to Payment</button>
-            </div>
-        </div>
+    <!-- Details -->
+    <div id="details-screen" class="screen">
+        <button class="back-btn" onclick="goBack()">
+            <i class="ri-arrow-left-line"></i>
+        </button>
 
-        <!-- Payment Screen -->
-        <div id="payment-screen" class="screen">
-            <div class="screen-header">
-                <button class="back-btn-inline" onclick="goBack()"><i class="ri-arrow-left-line"></i></button>
-                <h2>Payment</h2>
-            </div>
-            <div class="payment-content">
-                <p class="payment-subtitle">Amount to pay: <strong>₹<span id="payment-amount">0</span></strong></p>
-                
-                <div class="payment-methods">
-                    <label class="payment-method active" onclick="selectPayment('card')">
-                        <input type="radio" name="payment" value="card" checked>
-                        <div class="method-info">
-                            <i class="ri-bank-card-line"></i>
-                            <span>Credit / Debit Card</span>
-                        </div>
-                    </label>
-                    <label class="payment-method" onclick="selectPayment('upi')">
-                        <input type="radio" name="payment" value="upi">
-                        <div class="method-info">
-                            <i class="ri-smartphone-line"></i>
-                            <span>UPI (GPay, PhonePe)</span>
-                        </div>
-                    </label>
-                </div>
-
-                <div id="payment-card-details" class="payment-details">
-                    <div class="form-group">
-                        <input type="text" placeholder="Card Number" maxlength="16">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group"><input type="text" placeholder="MM/YY" maxlength="5"></div>
-                        <div class="form-group"><input type="text" placeholder="CVV" maxlength="3"></div>
-                    </div>
-                </div>
-
-                <div id="payment-upi-details" class="payment-details" style="display:none;">
-                    <div class="form-group">
-                        <input type="text" placeholder="Enter UPI ID (e.g. user@upi)">
-                    </div>
-                </div>
-
-            </div>
-            <div class="bottom-action-bar">
-                <button class="btn-primary full-width" onclick="confirmBooking()">Pay Now</button>
-            </div>
-        </div>
-
-        <!-- Confirmation Screen -->
-        <div id="confirmation-screen" class="screen">
-            <div class="success-content">
-                <div class="success-icon">
-                    <i class="ri-check-line"></i>
-                </div>
-                <h2>Booking Confirmed!</h2>
-                <p>Your trip to <span id="confirm-location">Location</span> is locked in.</p>
-                <div class="booking-ref">Ref: #<span id="confirm-id">12345</span></div>
-                <button class="btn-primary" onclick="navigateTo('home-screen'); resetNav()">Back to Home</button>
-                <button class="btn-secondary mt-3" onclick="navigateTo('dashboard-screen'); resetNav()">View Bookings</button>
-            </div>
-        </div>
-
-        <!-- User Dashboard -->
-        <div id="dashboard-screen" class="screen">
-            <div class="screen-header">
-                <h2>My Profile</h2>
-                <button class="logout-btn" onclick="logout()"><i class="ri-logout-box-r-line"></i></button>
-            </div>
-            <div class="dashboard-content">
-                <div class="profile-card">
-                    <div class="avatar-lg"><i class="ri-user-smile-line"></i></div>
-                    <div class="profile-info">
-                        <h3 id="dash-user-name">User Name</h3>
-                        <p id="dash-user-email">user@email.com</p>
-                    </div>
-                </div>
-
-                <div class="profile-settings">
-                    <h3 class="section-title">Settings</h3>
-                    <div class="setting-item">
-                        <div class="setting-info">
-                            <i class="ri-user-settings-line"></i>
-                            <span>Edit Profile</span>
-                        </div>
-                        <i class="ri-arrow-right-s-line" style="color:var(--text-muted)"></i>
-                    </div>
-                    <div class="setting-item">
-                        <div class="setting-info">
-                            <i class="ri-notification-3-line"></i>
-                            <span>Notifications</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    <div class="setting-item">
-                        <div class="setting-info">
-                            <i class="ri-global-line"></i>
-                            <span>Language</span>
-                        </div>
-                        <span style="color:var(--text-muted); font-size: 14px;">English</span>
-                    </div>
-                </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- User Bookings Screen -->
-        <div id="user-bookings-screen" class="screen">
-            <div class="screen-header">
-                <h2>My Bookings</h2>
-            </div>
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchUserBookingsTab('upcoming')">Upcoming</button>
-                <button class="admin-tab" onclick="switchUserBookingsTab('past')">Past</button>
-            </div>
-            <div class="dashboard-content">
-                <div class="bookings-list" id="user-bookings-list">
-                    <!-- Bookings injected here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Admin Panel -->
-        <div id="admin-screen" class="screen">
-            <div class="screen-header">
-                <h2>Admin Dashboard</h2>
-                <button class="logout-btn" onclick="logout()"><i class="ri-logout-box-r-line"></i></button>
-            </div>
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchAdminTab('manage-packages')">Packages</button>
-                <button class="admin-tab" onclick="switchAdminTab('view-bookings')">Bookings</button>
+        <div id="details-image" class="details-image"></div>
+        
+        <div class="details-content">
+            <div class="details-header-row">
+                <h2 id="details-title">Vehicle Name</h2>
+                <div class="details-price">₹<span id="details-price-val">0</span><span style="font-size:14px; color:var(--text-muted); font-weight:normal;">/day</span></div>
             </div>
             
-            <div id="admin-packages-tab" class="admin-content-tab active">
-                <button class="btn-secondary mb-3" onclick="showAddPackageForm()">+ Add New Package</button>
-                <div id="add-package-form" style="display:none;" class="admin-form">
-                    <input type="text" id="new-pkg-title" placeholder="Title">
-                    <input type="text" id="new-pkg-loc" placeholder="Location">
-                    <input type="number" id="new-pkg-price" placeholder="Price">
-                    <select id="new-pkg-cat">
-                        <option value="Hill Station">Hill Station</option>
-                        <option value="Beach">Beach</option>
-                        <option value="Heritage">Heritage</option>
-                        <option value="Nature">Nature</option>
-                    </select>
-                    <textarea id="new-pkg-desc" placeholder="Description"></textarea>
-                    <button class="btn-primary" onclick="saveNewPackage()">Save Package</button>
-                </div>
-                <div class="admin-list" id="admin-pkg-list">
-                    <!-- Manage packages -->
+            <div class="details-location">
+                <i class="ri-steering-2-line"></i> <span id="details-type">Category</span> • <span id="details-transmission">Manual</span> • <span id="details-fuel">Petrol</span>
+            </div>
+
+            <div class="details-rating">
+                <i class="ri-star-fill"></i> <span id="details-rating-val">4.5</span> (<span id="details-reviews-count">0</span> reviews)
+            </div>
+
+            <div class="specifications" style="display: flex; gap: 16px; margin-bottom: 24px;">
+                <div class="spec-item" style="background: var(--card-bg); padding: 12px; border-radius: 12px; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; flex: 1;">
+                    <i class="ri-group-line" style="color: var(--primary); font-size: 20px;"></i>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Seats</div>
+                        <div style="font-weight: 600;" id="details-seating">4</div>
+                    </div>
                 </div>
             </div>
 
-            <div id="admin-bookings-tab" class="admin-content-tab">
-                <div class="admin-list" id="admin-all-bookings-list">
-                    <!-- View all bookings -->
+            <h3 class="section-title">Description</h3>
+            <p id="details-desc" class="details-desc">Description text...</p>
+            
+            <h3 class="section-title">Reviews</h3>
+            <div class="add-review">
+                <input type="text" id="review-text" placeholder="Write a review...">
+                <button class="btn-primary" onclick="submitReview()">Post</button>
+            </div>
+            <div id="details-reviews-list" class="reviews-list"></div>
+            
+            <!-- Extra space for bottom bar -->
+            <div style="height: 80px;"></div>
+        </div>
+
+        <div class="bottom-action-bar">
+            <button class="btn-primary full-width" onclick="startBooking()">
+                Book This Ride
+            </button>
+        </div>
+    </div>
+
+    <!-- Booking Screen -->
+    <div id="booking-screen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn-inline" onclick="goBack()"><i class="ri-arrow-left-line"></i></button>
+            <h2>Booking Details</h2>
+        </div>
+
+        <div class="booking-content">
+            <div class="package-summary">
+                <div class="summary-flex">
+                    <div id="booking-pkg-img" class="summary-img"></div>
+                    <div>
+                        <h3 id="booking-pkg-title">Vehicle Name</h3>
+                        <div class="summary-loc"><i class="ri-group-line"></i> <span id="booking-pkg-seats">4 Seats</span></div>
+                        <div class="summary-price">₹<span id="booking-pkg-price">0</span>/day</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <i class="ri-calendar-event-line"></i>
+                <input type="date" id="booking-start-date" onchange="updateTotal()" placeholder="Pick-up Date">
+            </div>
+            
+            <div class="form-group">
+                <i class="ri-calendar-check-line"></i>
+                <input type="date" id="booking-end-date" onchange="updateTotal()" placeholder="Drop-off Date">
+            </div>
+
+            <div class="total-price-box">
+                <span>Total Amount</span>
+                <span class="total-amount">₹<span id="booking-total">0</span></span>
+            </div>
+
+            <button class="btn-primary full-width" style="margin-top: 24px;" onclick="proceedToPayment()">
+                Continue to Payment
+            </button>
+        </div>
+    </div>
+
+    <!-- Payment Screen -->
+    <div id="payment-screen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn-inline" onclick="goBack()"><i class="ri-arrow-left-line"></i></button>
+            <h2>Payment</h2>
+        </div>
+
+        <div class="payment-content">
+            <p class="payment-subtitle">Select Payment Method</p>
+            
+            <div class="payment-methods">
+                <div class="payment-method active" onclick="selectPayment('card')">
+                    <div class="method-info">
+                        <i class="ri-bank-card-line"></i>
+                        Credit / Debit Card
+                    </div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('upi')">
+                    <div class="method-info">
+                        <i class="ri-smartphone-line"></i>
+                        UPI / QR Code
+                    </div>
+                </div>
+            </div>
+
+            <div id="payment-card-details">
+                <div class="form-group">
+                    <input type="text" placeholder="Card Number" value="4111 2222 3333 4444">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="MM/YY" value="12/25">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="CVV" value="123">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Name on Card" value="Traveler Name">
+                </div>
+            </div>
+
+            <div id="payment-upi-details" style="display: none;">
+                <div class="form-group">
+                    <input type="text" placeholder="UPI ID (e.g. name@bank)" value="user@ybl">
+                </div>
+            </div>
+
+            <div class="total-price-box" style="margin-bottom: 24px;">
+                <span>Amount to Pay</span>
+                <span class="total-amount">₹<span id="payment-amount">0</span></span>
+            </div>
+
+            <button class="btn-primary full-width" onclick="confirmBooking()">
+                Pay Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirmation Screen -->
+    <div id="confirmation-screen" class="screen">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="ri-check-line"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your ride has been scheduled successfully.</p>
+            
+            <div class="booking-ref">
+                Booking ID: <span id="confirm-id">12345</span>
+            </div>
+            
+            <p style="margin-bottom: 32px;">You will receive the driver details on your email.</p>
+            
+            <button class="btn-primary" onclick="resetNav(); navigateTo('home-screen')">
+                Back to Home
+            </button>
+        </div>
+    </div>
+
+    <!-- User Bookings Screen -->
+    <div id="user-bookings-screen" class="screen">
+        <div class="screen-header">
+            <h2>My Rides</h2>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchUserBookingsTab('upcoming')">Upcoming</button>
+            <button class="admin-tab" onclick="switchUserBookingsTab('past')">Past / Cancelled</button>
+        </div>
+
+        <div id="user-bookings-list" class="dashboard-content">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Dashboard / Profile Screen -->
+    <div id="dashboard-screen" class="screen">
+        <div class="screen-header">
+            <h2>Profile</h2>
+            <button class="logout-btn" onclick="logout()">
+                <i class="ri-logout-box-r-line"></i>
+            </button>
+        </div>
+        
+        <div class="dashboard-content">
+            <div class="profile-card">
+                <div class="avatar-lg">
+                    <i class="ri-user-fill"></i>
+                </div>
+                <div class="profile-info">
+                    <h3 id="dash-user-name">User Name</h3>
+                    <p id="dash-user-email">user@email.com</p>
+                </div>
+            </div>
+
+            <div class="profile-settings">
+                <h3 class="section-title">Settings</h3>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="ri-notification-3-line"></i>
+                        Notifications
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="ri-earth-line"></i>
+                        Language
+                    </div>
+                    <span style="color:var(--text-muted); font-size:14px;">English</span>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <i class="ri-customer-service-2-line"></i>
+                        Help & Support
+                    </div>
+                    <i class="ri-arrow-right-s-line" style="color:var(--text-muted);"></i>
                 </div>
             </div>
         </div>
-
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav" id="main-nav" style="display:none;">
-            <a href="#" class="nav-item active" onclick="navToTab('home-screen', this)">
-                <i class="ri-home-5-line"></i>
-                <span>Home</span>
-            </a>
-            <a href="#" class="nav-item" onclick="navToTab('user-bookings-screen', this)">
-                <i class="ri-file-list-3-line"></i>
-                <span>Bookings</span>
-            </a>
-            <a href="#" class="nav-item" onclick="navToTab('dashboard-screen', this)">
-                <i class="ri-user-line"></i>
-                <span>Profile</span>
-            </a>
-        </nav>
-
     </div>
-    
-    <!-- Notification Toast -->
-    <div id="toast" class="toast">Message</div>
 
-    <script src="script.js"></script>
+    <!-- Admin Screen -->
+    <div id="admin-screen" class="screen">
+        <div class="screen-header">
+            <h2>Admin Panel</h2>
+            <button class="logout-btn" onclick="logout()">
+                <i class="ri-logout-box-r-line"></i>
+            </button>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchAdminTab('manage-vehicles')">Vehicles</button>
+            <button class="admin-tab" onclick="switchAdminTab('manage-bookings')">Bookings</button>
+        </div>
+
+        <!-- Manage Vehicles Tab -->
+        <div id="admin-vehicles-tab" class="admin-content-tab active">
+            <button class="btn-primary full-width" style="margin-bottom: 16px;" onclick="showAddVehicleForm()">
+                <i class="ri-add-line"></i> Add New Vehicle
+            </button>
+
+            <div id="add-vehicle-form" class="admin-form" style="display: none;">
+                <input type="text" id="new-veh-name" placeholder="Vehicle Name (e.g. Swift)">
+                <select id="new-veh-cat">
+                    <option value="Car">Car</option>
+                    <option value="Traveller">Traveller</option>
+                    <option value="Bus">Bus</option>
+                </select>
+                <input type="text" id="new-veh-type" placeholder="Type (e.g. Hatchback, SUV)">
+                <input type="number" id="new-veh-price" placeholder="Price per Day (₹)">
+                <input type="number" id="new-veh-seats" placeholder="Number of Seats">
+                <input type="text" id="new-veh-transmission" placeholder="Transmission (Manual/Automatic)">
+                <input type="text" id="new-veh-fuel" placeholder="Fuel (Petrol/Diesel)">
+                <textarea id="new-veh-desc" placeholder="Vehicle Description"></textarea>
+                
+                <button class="btn-primary" onclick="saveNewVehicle()">Save Vehicle</button>
+            </div>
+
+            <div id="admin-veh-list"></div>
+        </div>
+
+        <!-- Manage Bookings Tab -->
+        <div id="admin-bookings-tab" class="admin-content-tab">
+            <div id="admin-all-bookings-list"></div>
+        </div>
+    </div>
+
+    <!-- Filter Modal -->
+    <div id="filter-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Filter by Price</h3>
+                <button class="close-btn" onclick="toggleFilterModal()"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="filter-group">
+                <label style="display: flex; justify-content: space-between;">
+                    <span>Max Price per Day</span>
+                    <span id="price-display">₹50000</span>
+                </label>
+                <input type="range" id="filter-price" min="1000" max="50000" step="1000" value="50000" oninput="document.getElementById('price-display').innerText = '₹' + this.value">
+            </div>
+            <button class="btn-primary full-width" onclick="applyFilters()">Apply Filter</button>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div id="main-nav" class="bottom-nav" style="display: none;">
+        <div class="nav-item active" onclick="navToTab('home-screen', this)">
+            <i class="ri-home-5-line"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="navToTab('user-bookings-screen', this)">
+            <i class="ri-calendar-check-line"></i>
+            <span>My Rides</span>
+        </div>
+        <div class="nav-item" onclick="navToTab('dashboard-screen', this)">
+            <i class="ri-user-line"></i>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Success!</div>
+
+</div>
+
+<!-- Scripts -->
+<script src="script.js"></script>
 </body>
 </html>
