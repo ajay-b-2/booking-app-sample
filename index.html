@@ -449,6 +449,25 @@
             </div>
         </div>
 
+
+
+        
+    <!-- Cancel Confirmation Modal -->
+    <div id="cancel-confirm-modal" class="confirm-overlay">
+        <div class="confirm-box">
+            <div class="confirm-icon">
+                <i class="ri-error-warning-line"></i>
+            </div>
+            <h3>Cancel Booking?</h3>
+            <p>Are you sure you want to cancel this booking? This action cannot be undone.</p>
+            <div class="confirm-actions">
+                <button class="confirm-btn-no" onclick="closeCancelModal()">No, Keep It</button>
+                <button class="confirm-btn-yes" onclick="confirmCancelBooking()">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
+        
         <!-- Toast Notification -->
         <div id="toast" class="toast">Success!</div>
 
