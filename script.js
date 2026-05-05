@@ -10,7 +10,7 @@ let vehicles = [
         seating: 4,
         transmission: 'Automatic',
         fuel: 'Petrol',
-        image: 'https://imgd.aeplcdn.com/370x208/n/cw/ec/195601/nexon-exterior-left-front-three-quarter.jpeg?isig=0&wm=1&q=80',
+        image: 'https://imgd.aeplcdn.com/310x174/n/cw/ec/141867/nexon-exterior-right-front-three-quarter-79.png?isig=0&q=80',
         rating: 5.0,
         reviews: [
             { user: 'Karan M', text: 'Ultimate luxury! Made our wedding day unforgettable.' }
@@ -57,7 +57,7 @@ let vehicles = [
         seating: 7,
         transmission: 'Automatic',
         fuel: 'Diesel',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/2022_Toyota_Kijang_Innova_2.4_G_GUN142R_%2820220302%29.jpg/1280px-2022_Toyota_Kijang_Innova_2.4_G_GUN142R_%2820220302%29.jpg',
+        image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1000',
         rating: 4.9,
         reviews: [],
         description: 'Premium SUV offering ultimate comfort for long journeys. Ample legroom, powerful AC, and smooth automatic transmission.'
