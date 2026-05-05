@@ -206,14 +206,6 @@ button { border: none; outline: none; cursor: pointer; font-family: 'Outfit', sa
 
 .bottom-action-bar { position: absolute; bottom: 0; left: 0; width: 100%; padding: clamp(16px, 4vw, 20px) clamp(16px, 5vw, 24px); padding-bottom: calc(clamp(16px, 4vw, 20px) + env(safe-area-inset-bottom)); background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-top: 1px solid var(--border-color); z-index: 50; }
 
-/* Reviews */
-.reviews-list { margin-bottom: 16px; }
-.review-item { background: var(--card-bg-solid); border: 1px solid var(--border-color); padding: 16px; border-radius: 16px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
-.review-user { font-weight: 600; font-size: clamp(14px, 4vw, 15px); margin-bottom: 6px; color: var(--text-main); }
-.review-text { font-size: clamp(13px, 3.5vw, 14px); color: var(--text-muted); line-height: 1.5; }
-.add-review { display: flex; gap: 8px; margin-bottom: 30px; }
-.add-review input { flex: 1; padding: clamp(12px, 3vw, 14px); background: var(--card-bg-solid); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 16px; outline: none; font-size: clamp(13px, 3.5vw, 15px);}
-.add-review button { padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px); }
 
 /* Screen Header (General) */
 .screen-header { padding: max(20px, env(safe-area-inset-top)) clamp(16px, 5vw, 24px) 24px clamp(16px, 5vw, 24px); display: flex; align-items: center; gap: 16px; }
