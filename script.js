@@ -1,85 +1,97 @@
 // --- State Management ---
-let currentUser = null; // null or { name, email, role: 'user' | 'admin' }
-let packages = [
+let currentUser = null; 
+let vehicles = [
     {
         id: 1,
-        title: 'Munnar Tea Gardens Retreat',
-        location: 'Munnar, Kerala',
-        category: 'Hill Station',
-        price: 15000,
-        image: 'assets/munnar.png',
-        description: 'Experience the breathtaking lush green tea gardens of Munnar. Enjoy misty mornings, rolling hills, and a serene getaway amidst nature.',
+        name: 'Maruti Suzuki Swift',
+        category: 'Car',
+        type: 'Hatchback',
+        price: 1500,
+        seating: 4,
+        transmission: 'Manual',
+        fuel: 'Petrol',
+        image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1000',
         rating: 4.8,
         reviews: [
-            { user: 'John Doe', text: 'Amazing experience! The views are spectacular.' },
-            { user: 'Sarah M', text: 'Highly recommend this for a peaceful retreat.' }
-        ]
+            { user: 'Rahul K', text: 'Great car for city driving.' }
+        ],
+        description: 'Compact and fuel-efficient hatchback, perfect for city rides and short trips. Features AC, Bluetooth audio, and comfortable seating.'
     },
     {
         id: 2,
-        title: 'Alleppey Backwater Cruise',
-        location: 'Alleppey, Kerala',
-        category: 'Backwaters',
-        price: 22000,
-        image: 'assets/alleppey.png',
-        description: 'Relax in a traditional wooden houseboat on the serene backwaters of Alleppey. Enjoy golden sunsets, palm trees, and delicious Kerala cuisine onboard.',
+        name: 'Toyota Innova Crysta',
+        category: 'Car',
+        type: 'SUV',
+        price: 3000,
+        seating: 7,
+        transmission: 'Automatic',
+        fuel: 'Diesel',
+        image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1000',
         rating: 4.9,
-        reviews: [
-            { user: 'Mike T', text: 'The houseboat stay was incredible and very relaxing.' }
-        ]
+        reviews: [],
+        description: 'Premium SUV offering ultimate comfort for long journeys. Ample legroom, powerful AC, and smooth automatic transmission.'
     },
     {
         id: 3,
-        title: 'Wayanad Forest Adventure',
-        location: 'Wayanad, Kerala',
-        category: 'Nature',
-        price: 18000,
-        image: 'assets/wayanad.png',
-        description: 'Discover the dense green forests of Wayanad. Visit majestic waterfalls, explore wildlife, and stay in eco-friendly nature resorts.',
+        name: 'Force Traveller',
+        category: 'Traveller',
+        type: 'Van',
+        price: 4500,
+        seating: 12,
+        transmission: 'Manual',
+        fuel: 'Diesel',
+        image: 'https://images.unsplash.com/photo-1621291880461-1fc4e24eb3d9?auto=format&fit=crop&q=80&w=1000',
         rating: 4.7,
-        reviews: []
+        reviews: [],
+        description: 'Spacious 12-seater AC Traveller for group tours and family trips. Comes with push-back seats and ample luggage space.'
     },
     {
         id: 4,
-        title: 'Goa Beach Holiday',
-        location: 'Goa, India',
-        category: 'Beach',
-        price: 12000,
-        image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1000&auto=format&fit=crop',
-        description: 'Enjoy the vibrant nightlife, sandy beaches, and water sports in Goa. Perfect for a relaxing getaway.',
-        rating: 4.6,
-        reviews: []
+        name: 'Urbania Luxury Van',
+        category: 'Traveller',
+        type: 'Van',
+        price: 6000,
+        seating: 17,
+        transmission: 'Manual',
+        fuel: 'Diesel',
+        image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1000',
+        rating: 4.8,
+        reviews: [],
+        description: 'Luxury van with premium interiors, individual AC vents, and recliner seats for the ultimate group travel experience.'
     },
     {
         id: 5,
-        title: 'Jaipur Heritage Tour',
-        location: 'Jaipur, Rajasthan',
-        category: 'Heritage',
-        price: 14000,
-        image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=1000&auto=format&fit=crop',
-        description: 'Explore the Pink City, visit majestic forts, and experience the rich cultural heritage of Rajasthan.',
-        rating: 4.8,
-        reviews: []
+        name: 'Volvo B11R Multi-Axle',
+        category: 'Bus',
+        type: 'Luxury Bus',
+        price: 12000,
+        seating: 40,
+        transmission: 'Automatic',
+        fuel: 'Diesel',
+        image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=1000',
+        rating: 4.9,
+        reviews: [],
+        description: 'State-of-the-art Volvo luxury bus with semi-sleeper seats, onboard entertainment, and air suspension for maximum comfort.'
     },
     {
         id: 6,
-        title: 'Manali Snow Trek',
-        location: 'Manali, Himachal',
-        category: 'Hill Station',
-        price: 16000,
-        image: 'https://images.unsplash.com/photo-1605649487212-4d4b1f4fa9b4?q=80&w=1000&auto=format&fit=crop',
-        description: 'Experience the thrill of snowy mountains, cozy cafes, and beautiful pine forests in Manali.',
-        rating: 4.9,
-        reviews: []
+        name: 'Tata Magna AC Seater',
+        category: 'Bus',
+        type: 'AC Bus',
+        price: 9000,
+        seating: 45,
+        transmission: 'Manual',
+        fuel: 'Diesel',
+        image: 'https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?auto=format&fit=crop&q=80&w=1000',
+        rating: 4.6,
+        reviews: [],
+        description: 'Reliable and comfortable AC bus for corporate trips, school tours, and large group travels.'
     }
 ];
 
-let bookings = [
-    // { id, packageId, userId (email), date, guests, total, status }
-];
-
-let currentPackage = null;
-let currentBooking = null; // Temporary state during booking flow
+let bookings = [];
+let currentVehicle = null;
+let currentBooking = null; 
 let currentCategory = 'All';
 let maxPrice = 50000;
 let historyStack = [];
@@ -89,7 +101,7 @@ let currentBookingTab = 'upcoming';
 window.onload = () => {
     setTimeout(() => {
         navigateTo('auth-screen');
-    }, 2000); // 2 second splash screen
+    }, 2000); 
 };
 
 // --- Navigation ---
@@ -103,24 +115,22 @@ function navigateTo(screenId, pushToHistory = true) {
     const target = document.getElementById(screenId);
     if(target) target.classList.add('active');
 
-    // Bottom Nav visibility
     const mainNav = document.getElementById('main-nav');
     const screensWithNav = ['home-screen', 'dashboard-screen', 'user-bookings-screen'];
     if (screensWithNav.includes(screenId)) {
-        mainNav.style.display = 'flex';
+        if(mainNav) mainNav.style.display = 'flex';
         updateNavHighlight(screenId);
     } else {
-        mainNav.style.display = 'none';
+        if(mainNav) mainNav.style.display = 'none';
     }
 
-    // Refresh data on specific screens
     if (screenId === 'home-screen') {
-        renderPackages();
+        renderVehicles();
         renderUpcomingBooking();
     }
     if (screenId === 'user-bookings-screen') renderUserBookings();
     if (screenId === 'admin-screen') {
-        renderAdminPackages();
+        renderAdminVehicles();
         renderAdminBookings();
     }
 }
@@ -135,10 +145,9 @@ function goBack() {
 }
 
 function navToTab(screenId, element) {
-    historyStack = []; // Clear stack on bottom nav click
+    historyStack = []; 
     navigateTo(screenId, false);
     
-    // special logic if admin clicks profile
     if (screenId === 'dashboard-screen' && currentUser?.role === 'admin') {
         navigateTo('admin-screen', false);
     }
@@ -147,11 +156,11 @@ function navToTab(screenId, element) {
 function updateNavHighlight(screenId) {
     document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
     if(screenId === 'home-screen') {
-        document.querySelectorAll('.nav-item')[0].classList.add('active');
+        if(document.querySelectorAll('.nav-item')[0]) document.querySelectorAll('.nav-item')[0].classList.add('active');
     } else if (screenId === 'user-bookings-screen') {
-        document.querySelectorAll('.nav-item')[1].classList.add('active');
+        if(document.querySelectorAll('.nav-item')[1]) document.querySelectorAll('.nav-item')[1].classList.add('active');
     } else if (screenId === 'dashboard-screen' || screenId === 'admin-screen') {
-        document.querySelectorAll('.nav-item')[2].classList.add('active');
+        if(document.querySelectorAll('.nav-item')[2]) document.querySelectorAll('.nav-item')[2].classList.add('active');
     }
 }
 
@@ -216,36 +225,36 @@ function logout() {
 }
 
 // --- Home Screen Logic ---
-function renderPackages() {
-    const list = document.getElementById('package-list');
+function renderVehicles() {
+    const list = document.getElementById('vehicle-list');
     list.innerHTML = '';
     const query = document.getElementById('search-input').value.toLowerCase();
 
-    let filtered = packages.filter(p => {
-        const matchCategory = currentCategory === 'All' || p.category === currentCategory;
-        const matchSearch = p.title.toLowerCase().includes(query) || p.location.toLowerCase().includes(query);
-        const matchPrice = p.price <= maxPrice;
+    let filtered = vehicles.filter(v => {
+        const matchCategory = currentCategory === 'All' || v.category === currentCategory;
+        const matchSearch = v.name.toLowerCase().includes(query) || v.type.toLowerCase().includes(query);
+        const matchPrice = v.price <= maxPrice;
         return matchCategory && matchSearch && matchPrice;
     });
 
     if(filtered.length === 0) {
-        list.innerHTML = '<p style="text-align:center; color: var(--text-muted); margin-top: 20px;">No packages found.</p>';
+        list.innerHTML = '<p style="text-align:center; color: var(--text-muted); margin-top: 20px;">No vehicles found.</p>';
         return;
     }
 
-    filtered.forEach(pkg => {
+    filtered.forEach(veh => {
         const div = document.createElement('div');
         div.className = 'package-card';
-        div.onclick = () => openDetails(pkg.id);
+        div.onclick = () => openDetails(veh.id);
         div.innerHTML = `
-            <div class="package-img" style="background-image: url('${pkg.image}')">
-                <div class="package-price-tag">₹${pkg.price}</div>
+            <div class="package-img" style="background-image: url('${veh.image}')">
+                <div class="package-price-tag">₹${veh.price}/day</div>
             </div>
             <div class="package-info">
-                <h3 class="package-title">${pkg.title}</h3>
-                <p class="package-loc"><i class="ri-map-pin-line"></i> ${pkg.location}</p>
+                <h3 class="package-title">${veh.name}</h3>
+                <p class="package-loc"><i class="ri-steering-2-line"></i> ${veh.type} • ${veh.seating} Seats</p>
                 <div class="package-rating">
-                    <i class="ri-star-fill"></i> ${pkg.rating} (${pkg.reviews.length})
+                    <i class="ri-star-fill"></i> ${veh.rating} (${veh.reviews.length})
                 </div>
             </div>
         `;
@@ -264,32 +273,27 @@ function renderUpcomingBooking() {
     
     const myBookings = bookings.filter(b => b.userId === currentUser.email && b.status === 'Confirmed');
     if (myBookings.length > 0) {
-        const nextTrip = myBookings[0];
-        const pkg = packages.find(p => p.id === nextTrip.packageId);
+        const nextTrip = myBookings[myBookings.length - 1]; // most recent
+        const veh = vehicles.find(v => v.id === nextTrip.vehicleId);
         container.style.display = 'block';
         card.innerHTML = `
             <div class="bc-header">
-                <span>${pkg.title}</span>
+                <span>${veh.name}</span>
                 <span class="bc-status">Upcoming</span>
             </div>
-            <div class="bc-date" style="margin-top:8px;"><i class="ri-calendar-line"></i> Date: ${nextTrip.date}</div>
-            <div class="bc-date" style="margin-top:4px;"><i class="ri-user-line"></i> Guests: ${nextTrip.guests}</div>
+            <div class="bc-date" style="margin-top:8px;"><i class="ri-calendar-line"></i> From: ${nextTrip.startDate} To: ${nextTrip.endDate}</div>
+            <div class="bc-date" style="margin-top:4px;"><i class="ri-wallet-3-line"></i> Total: ₹${nextTrip.total}</div>
         `;
     } else {
         container.style.display = 'none';
     }
 }
 
-
 function setCategory(cat) {
     currentCategory = cat;
     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
-    renderPackages();
-}
-
-function filterPackages() {
-    renderPackages();
+    renderVehicles();
 }
 
 function toggleFilterModal() {
@@ -300,21 +304,24 @@ function toggleFilterModal() {
 function applyFilters() {
     maxPrice = parseInt(document.getElementById('filter-price').value);
     toggleFilterModal();
-    renderPackages();
+    renderVehicles();
 }
 
 // --- Details Screen Logic ---
 function openDetails(id) {
-    currentPackage = packages.find(p => p.id === id);
-    if(!currentPackage) return;
+    currentVehicle = vehicles.find(v => v.id === id);
+    if(!currentVehicle) return;
 
-    document.getElementById('details-image').style.backgroundImage = `url('${currentPackage.image}')`;
-    document.getElementById('details-title').innerText = currentPackage.title;
-    document.getElementById('details-price').innerText = currentPackage.price;
-    document.getElementById('details-location').innerText = currentPackage.location;
-    document.getElementById('details-rating-val').innerText = currentPackage.rating;
-    document.getElementById('details-reviews-count').innerText = currentPackage.reviews.length;
-    document.getElementById('details-desc').innerText = currentPackage.description;
+    document.getElementById('details-image').style.backgroundImage = `url('${currentVehicle.image}')`;
+    document.getElementById('details-title').innerText = currentVehicle.name;
+    document.getElementById('details-price-val').innerText = currentVehicle.price;
+    document.getElementById('details-type').innerText = currentVehicle.type;
+    document.getElementById('details-transmission').innerText = currentVehicle.transmission;
+    document.getElementById('details-fuel').innerText = currentVehicle.fuel;
+    document.getElementById('details-rating-val').innerText = currentVehicle.rating;
+    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
+    document.getElementById('details-seating').innerText = currentVehicle.seating;
+    document.getElementById('details-desc').innerText = currentVehicle.description;
     
     renderReviews();
     navigateTo('details-screen');
@@ -324,12 +331,12 @@ function renderReviews() {
     const list = document.getElementById('details-reviews-list');
     list.innerHTML = '';
     
-    if (currentPackage.reviews.length === 0) {
+    if (currentVehicle.reviews.length === 0) {
         list.innerHTML = '<p class="review-text">No reviews yet. Be the first!</p>';
         return;
     }
 
-    currentPackage.reviews.forEach(r => {
+    currentVehicle.reviews.forEach(r => {
         const div = document.createElement('div');
         div.className = 'review-item';
         div.innerHTML = `
@@ -345,13 +352,13 @@ function submitReview() {
     const text = input.value.trim();
     if(!text) return;
 
-    currentPackage.reviews.push({
+    currentVehicle.reviews.push({
         user: currentUser.name,
         text: text
     });
     
     input.value = '';
-    document.getElementById('details-reviews-count').innerText = currentPackage.reviews.length;
+    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
     renderReviews();
     showToast("Review added!");
 }
@@ -364,38 +371,54 @@ function startBooking() {
         return;
     }
     
-    document.getElementById('booking-pkg-img').style.backgroundImage = `url('${currentPackage.image}')`;
-    document.getElementById('booking-pkg-title').innerText = currentPackage.title;
-    document.getElementById('booking-pkg-loc').innerText = currentPackage.location;
-    document.getElementById('booking-pkg-price').innerText = currentPackage.price;
-    document.getElementById('booking-guests').value = 1;
-    document.getElementById('booking-date').value = '';
-    updateTotal();
+    document.getElementById('booking-pkg-img').style.backgroundImage = `url('${currentVehicle.image}')`;
+    document.getElementById('booking-pkg-title').innerText = currentVehicle.name;
+    document.getElementById('booking-pkg-seats').innerText = currentVehicle.seating + ' Seats';
+    document.getElementById('booking-pkg-price').innerText = currentVehicle.price;
+    document.getElementById('booking-start-date').value = '';
+    document.getElementById('booking-end-date').value = '';
+    document.getElementById('booking-total').innerText = '0';
     
     navigateTo('booking-screen');
 }
 
 function updateTotal() {
-    const guests = parseInt(document.getElementById('booking-guests').value) || 1;
-    const total = currentPackage.price * guests;
-    document.getElementById('booking-total').innerText = total;
+    const start = document.getElementById('booking-start-date').value;
+    const end = document.getElementById('booking-end-date').value;
+    
+    if (start && end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const diffTime = endDate - startDate;
+        let days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (days < 1) days = 1; // minimum 1 day
+        
+        const total = currentVehicle.price * days;
+        document.getElementById('booking-total').innerText = total;
+    }
 }
 
 function proceedToPayment() {
-    const date = document.getElementById('booking-date').value;
-    const guests = document.getElementById('booking-guests').value;
+    const start = document.getElementById('booking-start-date').value;
+    const end = document.getElementById('booking-end-date').value;
+    const totalText = document.getElementById('booking-total').innerText;
     
-    if(!date) {
-        showToast("Please select a travel date");
+    if(!start || !end) {
+        showToast("Please select dates");
+        return;
+    }
+
+    if (new Date(end) < new Date(start)) {
+        showToast("End date must be after start date");
         return;
     }
 
     currentBooking = {
-        packageId: currentPackage.id,
+        vehicleId: currentVehicle.id,
         userId: currentUser.email,
-        date: date,
-        guests: guests,
-        total: currentPackage.price * guests
+        startDate: start,
+        endDate: end,
+        total: parseInt(totalText)
     };
 
     document.getElementById('payment-amount').innerText = currentBooking.total;
@@ -416,20 +439,18 @@ function selectPayment(method) {
 }
 
 function confirmBooking() {
-    // Generate random ID
     const refId = Math.floor(10000 + Math.random() * 90000);
     
     bookings.push({
         id: refId,
-        packageId: currentBooking.packageId,
+        vehicleId: currentBooking.vehicleId,
         userId: currentBooking.userId,
-        date: currentBooking.date,
-        guests: currentBooking.guests,
+        startDate: currentBooking.startDate,
+        endDate: currentBooking.endDate,
         total: currentBooking.total,
         status: 'Confirmed'
     });
 
-    document.getElementById('confirm-location').innerText = currentPackage.location;
     document.getElementById('confirm-id').innerText = refId;
     
     navigateTo('confirmation-screen', false);
@@ -459,20 +480,20 @@ function renderUserBookings() {
     });
 
     if (filteredBookings.length === 0) {
-        list.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding: 20px;">No ${currentBookingTab} bookings found.</p>`;
+        list.innerHTML = `<p style="color:var(--text-muted); text-align:center; padding: 20px;">No ${currentBookingTab} rides found.</p>`;
         return;
     }
 
     filteredBookings.forEach(b => {
-        const pkg = packages.find(p => p.id === b.packageId);
+        const veh = vehicles.find(v => v.id === b.vehicleId);
         const div = document.createElement('div');
         div.className = 'booking-card';
         div.innerHTML = `
             <div class="bc-header">
-                <span>${pkg.title}</span>
+                <span>${veh.name}</span>
                 <span class="bc-status">${b.status}</span>
             </div>
-            <div class="bc-date">Travel Date: ${b.date} | Guests: ${b.guests}</div>
+            <div class="bc-date">From: ${b.startDate} | To: ${b.endDate}</div>
             <div style="font-weight:600; font-size:14px; margin-top:4px;">Total: ₹${b.total}</div>
             ${b.status === 'Confirmed' ? `
             <div class="bc-actions">
@@ -494,68 +515,75 @@ function cancelBooking(id) {
 
 // --- Admin Panel ---
 function switchAdminTab(tab) {
-    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#admin-screen .admin-tab').forEach(t => t.classList.remove('active'));
     event.target.classList.add('active');
     
     document.querySelectorAll('.admin-content-tab').forEach(c => c.classList.remove('active'));
-    if(tab === 'manage-packages') {
-        document.getElementById('admin-packages-tab').classList.add('active');
+    if(tab === 'manage-vehicles') {
+        document.getElementById('admin-vehicles-tab').classList.add('active');
     } else {
         document.getElementById('admin-bookings-tab').classList.add('active');
     }
 }
 
-function showAddPackageForm() {
-    const form = document.getElementById('add-package-form');
+function showAddVehicleForm() {
+    const form = document.getElementById('add-vehicle-form');
     form.style.display = form.style.display === 'none' ? 'flex' : 'none';
 }
 
-function saveNewPackage() {
-    const title = document.getElementById('new-pkg-title').value;
-    const loc = document.getElementById('new-pkg-loc').value;
-    const price = parseInt(document.getElementById('new-pkg-price').value);
-    const cat = document.getElementById('new-pkg-cat').value;
-    const desc = document.getElementById('new-pkg-desc').value;
+function saveNewVehicle() {
+    const name = document.getElementById('new-veh-name').value;
+    const cat = document.getElementById('new-veh-cat').value;
+    const type = document.getElementById('new-veh-type').value;
+    const price = parseInt(document.getElementById('new-veh-price').value);
+    const seats = parseInt(document.getElementById('new-veh-seats').value);
+    const trans = document.getElementById('new-veh-transmission').value;
+    const fuel = document.getElementById('new-veh-fuel').value;
+    const desc = document.getElementById('new-veh-desc').value;
 
-    if(!title || !loc || !price || !desc) {
-        showToast("Please fill all fields");
+    if(!name || !price || !seats || !desc) {
+        showToast("Please fill all required fields");
         return;
     }
 
-    const newPkg = {
-        id: packages.length + 1,
-        title, location: loc, price, category: cat, description: desc,
-        image: 'assets/munnar.png', // using placeholder existing image
+    const newVeh = {
+        id: vehicles.length + 1,
+        name: name, category: cat, type: type, price: price, 
+        seating: seats, transmission: trans, fuel: fuel, description: desc,
+        image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=1000',
         rating: 5.0,
         reviews: []
     };
 
-    packages.push(newPkg);
+    vehicles.push(newVeh);
     
-    document.getElementById('new-pkg-title').value = '';
-    document.getElementById('new-pkg-loc').value = '';
-    document.getElementById('new-pkg-price').value = '';
-    document.getElementById('new-pkg-desc').value = '';
-    showAddPackageForm(); // hide
+    document.getElementById('new-veh-name').value = '';
+    document.getElementById('new-veh-type').value = '';
+    document.getElementById('new-veh-price').value = '';
+    document.getElementById('new-veh-seats').value = '';
+    document.getElementById('new-veh-transmission').value = '';
+    document.getElementById('new-veh-fuel').value = '';
+    document.getElementById('new-veh-desc').value = '';
+    showAddVehicleForm();
     
-    renderAdminPackages();
-    showToast("Package Added!");
+    renderAdminVehicles();
+    showToast("Vehicle Added!");
 }
 
-function renderAdminPackages() {
-    const list = document.getElementById('admin-pkg-list');
+function renderAdminVehicles() {
+    const list = document.getElementById('admin-veh-list');
     list.innerHTML = '';
 
-    packages.forEach(pkg => {
+    vehicles.forEach(veh => {
         const div = document.createElement('div');
         div.className = 'admin-pkg-card';
         div.innerHTML = `
-            <div class="admin-pkg-img" style="background-image: url('${pkg.image}')"></div>
+            <div class="admin-pkg-img" style="background-image: url('${veh.image}')"></div>
             <div class="admin-pkg-info">
-                <div class="admin-pkg-title">${pkg.title}</div>
-                <div class="admin-pkg-price">₹${pkg.price}</div>
+                <div class="admin-pkg-title">${veh.name}</div>
+                <div class="admin-pkg-price">₹${veh.price}/day</div>
             </div>
-            <button class="btn-delete-sm" onclick="deletePackage(${pkg.id})"><i class="ri-delete-bin-line"></i></button>
+            <button class="btn-delete-sm" onclick="deleteVehicle(${veh.id})"><i class="ri-delete-bin-line"></i></button>
         `;
         list.appendChild(div);
     });
@@ -571,7 +599,7 @@ function renderAdminBookings() {
     }
 
     bookings.forEach(b => {
-        const pkg = packages.find(p => p.id === b.packageId);
+        const veh = vehicles.find(v => v.id === b.vehicleId);
         const div = document.createElement('div');
         div.className = 'booking-card';
         div.innerHTML = `
@@ -580,7 +608,8 @@ function renderAdminBookings() {
                 <span class="bc-status">${b.status}</span>
             </div>
             <div class="bc-date">User: ${b.userId}</div>
-            <div class="bc-date">Package: ${pkg?.title} | Date: ${b.date}</div>
+            <div class="bc-date">Vehicle: ${veh?.name}</div>
+            <div class="bc-date">From: ${b.startDate} | To: ${b.endDate}</div>
             <div style="font-weight:600; font-size:14px; margin-top:4px;">Total: ₹${b.total}</div>
         `;
         list.appendChild(div);
@@ -597,10 +626,10 @@ function showToast(msg) {
     }, 3000);
 }
 
-function deletePackage(id) {
-    if(confirm("Are you sure you want to delete this package?")) {
-        packages = packages.filter(p => p.id !== id);
-        renderAdminPackages();
-        showToast("Package deleted successfully");
+function deleteVehicle(id) {
+    if(confirm("Are you sure you want to delete this vehicle?")) {
+        vehicles = vehicles.filter(v => v.id !== id);
+        renderAdminVehicles();
+        showToast("Vehicle deleted");
     }
 }
