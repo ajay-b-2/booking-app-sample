@@ -10,7 +10,7 @@ let vehicles = [
         seating: 4,
         transmission: 'Automatic',
         fuel: 'Petrol',
-        image: 'https://imgd.aeplcdn.com/310x174/n/cw/ec/141867/nexon-exterior-right-front-three-quarter-79.png?isig=0&q=80',
+        image: 'https://imgd.aeplcdn.com/370x208/n/cw/ec/195601/nexon-exterior-left-front-three-quarter.jpeg?isig=0&wm=1&q=80',
         rating: 5.0,
         reviews: [
             { user: 'Karan M', text: 'Ultimate luxury! Made our wedding day unforgettable.' }
@@ -57,7 +57,7 @@ let vehicles = [
         seating: 7,
         transmission: 'Automatic',
         fuel: 'Diesel',
-        image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1000',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/2022_Toyota_Kijang_Innova_2.4_G_GUN142R_%2820220302%29.jpg/1280px-2022_Toyota_Kijang_Innova_2.4_G_GUN142R_%2820220302%29.jpg',
         rating: 4.9,
         reviews: [],
         description: 'Premium SUV offering ultimate comfort for long journeys. Ample legroom, powerful AC, and smooth automatic transmission.'
@@ -331,7 +331,7 @@ function renderVehicles() {
                 <h3 class="package-title">${veh.name}</h3>
                 <p class="package-loc"><i class="ri-steering-2-line"></i> ${veh.type} • ${veh.seating} Seats</p>
                 <div class="package-rating">
-                    <i class="ri-star-fill"></i> ${veh.rating}
+                    <i class="ri-star-fill"></i> ${veh.rating} (${veh.reviews.length})
                 </div>
             </div>
         `;
@@ -396,13 +396,49 @@ function openDetails(id) {
     document.getElementById('details-transmission').innerText = currentVehicle.transmission;
     document.getElementById('details-fuel').innerText = currentVehicle.fuel;
     document.getElementById('details-rating-val').innerText = currentVehicle.rating;
+    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
     document.getElementById('details-seating').innerText = currentVehicle.seating;
     document.getElementById('details-desc').innerText = currentVehicle.description;
     
+    renderReviews();
     navigateTo('details-screen');
 }
 
+function renderReviews() {
+    const list = document.getElementById('details-reviews-list');
+    list.innerHTML = '';
+    
+    if (currentVehicle.reviews.length === 0) {
+        list.innerHTML = '<p class="review-text">No reviews yet. Be the first!</p>';
+        return;
+    }
 
+    currentVehicle.reviews.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'review-item';
+        div.innerHTML = `
+            <div class="review-user">${r.user}</div>
+            <div class="review-text">${r.text}</div>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function submitReview() {
+    const input = document.getElementById('review-text');
+    const text = input.value.trim();
+    if(!text) return;
+
+    currentVehicle.reviews.push({
+        user: currentUser.name,
+        text: text
+    });
+    
+    input.value = '';
+    document.getElementById('details-reviews-count').innerText = currentVehicle.reviews.length;
+    renderReviews();
+    showToast("Review added!");
+}
 
 // --- Booking Flow ---
 function startBooking() {
